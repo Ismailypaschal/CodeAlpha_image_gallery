@@ -1,0 +1,62 @@
+// Carousel prev/next behavior for horizontal overflow layout
+document.addEventListener('DOMContentLoaded', () => {
+	const prevButton = document.getElementById('prev');
+	const nextButton = document.getElementById('next');
+	if (!prevButton || !nextButton) return;
+
+	// find the carousel container inside the same overflow-hidden wrapper
+	const wrapper = prevButton.closest('.overflow-hidden');
+	if (!wrapper) return;
+
+	// the inner flex container (matches the user's markup: overflow-x-hidden flex gap-6)
+	const carousel = wrapper.querySelector('.overflow-x-hidden.flex');
+	if (!carousel) return;
+
+	const items = Array.from(carousel.querySelectorAll('.group'));
+
+	// Scroll amount: one viewport width (so sm shows 1, md shows 4 etc.)
+	function getScrollAmount() {
+		return carousel.clientWidth;
+	}
+
+	function updateButtons() {
+		const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+		if (carousel.scrollLeft <= 0) {
+			prevButton.setAttribute('disabled', '');
+			prevButton.classList.add('text-gray-400');
+			prevButton.classList.remove('text-white');
+		} else {
+			prevButton.removeAttribute('disabled');
+			prevButton.classList.remove('text-gray-400');
+			prevButton.classList.add('text-white');
+		}
+
+		if (carousel.scrollLeft >= maxScrollLeft - 1) {
+			nextButton.setAttribute('disabled', '');
+			nextButton.classList.add('text-gray-400');
+			nextButton.classList.remove('text-white');
+		} else {
+			nextButton.removeAttribute('disabled');
+			nextButton.classList.remove('text-gray-400');
+			nextButton.classList.add('text-white');
+		}
+	}
+
+	prevButton.addEventListener('click', () => {
+		const amount = getScrollAmount();
+		carousel.scrollBy({ left: -amount, behavior: 'smooth' });
+	});
+
+	nextButton.addEventListener('click', () => {
+		const amount = getScrollAmount();
+		carousel.scrollBy({ left: amount, behavior: 'smooth' });
+	});
+
+	// update buttons after scroll / on resize
+	carousel.addEventListener('scroll', () => requestAnimationFrame(updateButtons));
+	window.addEventListener('resize', () => requestAnimationFrame(updateButtons));
+
+	// initial state
+	updateButtons();
+});
+
