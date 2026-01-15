@@ -33,6 +33,7 @@
               "background-dark": "#101d22",
               "surface-dark": "#1c2b30",
               "surface-hover": "#283539",
+              green: "#22c55e",
             },
             fontFamily: {
               display: ["Plus Jakarta Sans", "sans-serif"],
@@ -569,6 +570,26 @@
         </p>
       </div>
     </footer>
-    <script src="index.js"></script>
+
+    <div
+      id="lightBox"
+      class="flex flex-col justify-center items-center h-screen w-full fixed top-0 left-0 w-full bg-black transition-opacity z-[9999]"
+    >
+      <button
+        type="button"
+        id="close"
+        class="absolute top-0 lg:top-10 text-[#fff] hover:text-green-500 text-3xl right-2 cursor-pointer z-[10000]"
+      >
+        &times;</button
+      ><img
+        id="lightBoxCon"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuANCOJ57WomWeB-2dE-6JyNCRxVRi1jMjrU39ovdei_OawbQIq7yDN_aRqfU3RzooNoGoOLT_VA7cPOX6QV4HcoQyteTYVBAwJDHxDnb2PeQpjMWIfjbwFID29HLG2fFxq-Fe8z99c4VbihF_qubMtxWIiuAI1cypobGwjjAcFeorthDNEzXeTobeS30kifaTH3yuQ1OTHH9Ugl1c70CyIgHCLZoZGLoGHzHSgu8p9SxLImwZLJvYKUDCAPD1MybwulJfKxsnrUwo9q"
+        alt="lightBoxImage"
+        class="w-[90%] max-w-[568px] h-[80%] max-h-[520px] my-40 lg:my-0 rounded-[8px] object-cover"
+      />
+      <div id="caption" class="">Image</div>
+    </div>
+
+    <script src="./index.js"></script>
   </body>
 </html>
